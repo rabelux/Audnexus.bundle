@@ -96,12 +96,14 @@ class AlbumSearchTool:
         if len(name_parts) < 2:
             return input_name
 
-        # Build list of prename initials
-        initials = [f"{s[0]}." if s[1] != "." else s for s in name_parts[:-1]]
+        new_name = ""
+        # Truncate prenames
+        for part in s[:-1]:
+            new_name += part[0] + "." if part[1] != "." else part
         # Add surname
-        new_name = initials + [name_parts[-1]]
+        new_name += s[-1]
 
-        return "".join(new_name)
+        return new_name
 
     def parse_api_response(self, api_response):
         """
